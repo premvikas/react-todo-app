@@ -54,7 +54,7 @@ const addTask = (task) => {
   return (
     <div className="App">
       <h1>React crash course</h1>
-      <Header onAdd={() => setShowAddTask(!showAddTask)}/>
+      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
       {showAddTask && <AddTask onAdd={addTask}/>}
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleRemainder}/> : 'No Tasks To Show'}
     </div>
