@@ -8,6 +8,7 @@ import AddTask from './components/AddTask';
 
 function App() {
 
+const [showAddTask, setShowAddTask] = useState(false);
 const [tasks, setTasks] = useState(
   [
       {
@@ -53,8 +54,8 @@ const addTask = (task) => {
   return (
     <div className="App">
       <h1>React crash course</h1>
-      <Header />
-      <AddTask onAdd={addTask}/>
+      <Header onAdd={() => setShowAddTask(!showAddTask)}/>
+      {showAddTask && <AddTask onAdd={addTask}/>}
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleRemainder}/> : 'No Tasks To Show'}
     </div>
   );
