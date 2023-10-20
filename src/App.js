@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Header from './components/Header';
 import Tasks from './components/Tasks';
@@ -9,28 +9,22 @@ import AddTask from './components/AddTask';
 function App() {
 
 const [showAddTask, setShowAddTask] = useState(false);
-const [tasks, setTasks] = useState(
-  [
-      {
-          id:1,
-          text: 'Sprint Discussion',
-          day: 'day 1',
-          remainder: true
-      },
-      {
-          id:2,
-          text: 'Deep Work',
-          day: 'day 2',
-          remainder: true
-      },
-      {
-          id:3,
-          text: 'Stand Up Meeting',
-          day: 'day 3',
-          remainder: false
-      }
-  ]
-)
+const [tasks, setTasks] = useState([]);
+
+useEffect(() => {
+  const getTasks = async () => {
+    const taskFromServer = await fetchTasks();
+    setTasks(taskFromServer);
+  }
+
+  getTasks();
+},[])
+
+const fetchTasks = async () => {
+  const res = await fetch('http://localhost:5001/tasks')
+  const data = await res.json();
+  return data;
+}
 
 const deleteTask = (id) => {
   setTasks(tasks.filter((task) => task.id !== id));

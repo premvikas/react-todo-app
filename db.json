@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "id":1,
+      "text": "Sprint Discussion",
+      "day": "day 1",
+      "remainder": true
+  },
+  {
+      "id":2,
+      "text": "Deep Work",
+      "day": "day 2",
+      "remainder": true
+  },
+  {
+      "id":3,
+      "text": "Stand Up Meeting",
+      "day": "day 3",
+      "remainder": false
+  }
+  ]
+}
