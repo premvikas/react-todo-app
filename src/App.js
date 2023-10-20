@@ -26,7 +26,11 @@ const fetchTasks = async () => {
   return data;
 }
 
-const deleteTask = (id) => {
+const deleteTask =async(id) => {
+  await fetch(`http://localhost:5001/tasks/${id}`,{
+    method: 'DELETE'
+  })
+
   setTasks(tasks.filter((task) => task.id !== id));
 }
 
