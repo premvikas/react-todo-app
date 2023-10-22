@@ -34,12 +34,26 @@ const deleteTask =async(id) => {
   setTasks(tasks.filter((task) => task.id !== id));
 }
 
-const toggleRemainder = (id) => {
-  setTasks(
-    tasks.map((task) => 
-      task.id === id ? { ...task, remainder : !task.remainder} : task
+const toggleRemainder = async(id) => {
+
+  const taskToToggle = await fetchTasks(id)
+    const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
+
+    const res = await fetch(`http://localhost:5001/tasks/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(updTask),
+    })
+
+    const data = await res.json()
+
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, reminder: data.reminder } : task
+      )
     )
-  )
 }
 
 const addTask = async (task) => {
