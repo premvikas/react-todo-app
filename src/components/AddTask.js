@@ -4,7 +4,7 @@ const AddTask = ({onAdd}) => {
 
     const [text, setText] = useState('');
     const [day, setDay] = useState('');
-    const [remainder, setRemainder] = useState('');
+    const [remainder, setRemainder] = useState(false);
 
     const onSubmit = (e) => {
         e.preventDefault();

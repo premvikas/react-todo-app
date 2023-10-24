@@ -20,12 +20,6 @@ useEffect(() => {
   getTasks();
 },[])
 
-const fetchTasks = async () => {
-  const res = await fetch('http://localhost:5001/tasks')
-  const data = await res.json();
-  return data;
-}
-
 const deleteTask =async(id) => {
   await fetch(`http://localhost:5001/tasks/${id}`,{
     method: 'DELETE'
@@ -36,8 +30,8 @@ const deleteTask =async(id) => {
 
 const toggleRemainder = async(id) => {
 
-  const taskToToggle = await fetchTasks(id)
-    const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
+  const taskToToggle = await fetchTask(id);
+  const updTask = { ...taskToToggle, "remainder": !taskToToggle.remainder }
 
     const res = await fetch(`http://localhost:5001/tasks/${id}`, {
       method: 'PUT',
@@ -48,10 +42,9 @@ const toggleRemainder = async(id) => {
     })
 
     const data = await res.json()
-
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, reminder: data.reminder } : task
+        task.id === id ? { ...task, remainder: data.remainder } : task
       )
     )
 }
@@ -68,6 +61,21 @@ const addTask = async (task) => {
 
   const data = await res.json();
   setTasks([...tasks, data]);
+}
+
+const fetchTasks = async () => {
+  const res = await fetch('http://localhost:5001/tasks')
+  const data = await res.json()
+
+  return data
+}
+
+// Fetch Task
+const fetchTask = async (id) => {
+  const res = await fetch(`http://localhost:5001/tasks/${id}`)
+  const data = await res.json()
+
+  return data
 }
 
   return (
